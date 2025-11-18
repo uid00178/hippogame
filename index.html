@@ -1,7 +1,7 @@
 const express = require("express");
 const { Telegraf } = require("telegraf");
 
-const bot = new Telegraf("ТВОЙ_ТОКЕН_ОТ_BOTFATHER");
+const bot = new Telegraf("8550152760:AAHQVkglO6KwUE5NlxGEvmAoAocf1rFJm38");
 const app = express();
 
 app.use(express.json());
@@ -53,3 +53,4 @@ bot.telegram.setWebhook(`https://hippogame-production.up.railway.app/webhook`);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
