@@ -1,60 +1,55 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Hippo Jump</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-        #gameCanvas {
-            display: block;
-            background: #8b7d3a;
-        }
-        #score {
-            position: absolute;
-            left: 20px;
-            top: 10px;
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px #00000055;
-        }
-        #gameOver {
-            position: absolute;
-            top: 40%;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 48px;
-            font-weight: bold;
-            display: none;
-        }
-        #restartBtn {
-            position: absolute;
-            top: 55%;
-            width: 100%;
-            text-align: center;
-            display: none;
-        }
-        button {
-            font-size: 22px;
-            padding: 12px 28px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+const express = require("express");
+const { Telegraf } = require("telegraf");
 
-<div id="score">Счёт: 0</div>
-<div id="gameOver">Игра окончена</div>
-<div id="restartBtn"><button onclick="restartGame()">Играть снова</button></div>
+const bot = new Telegraf("ТВОЙ_ТОКЕН_ОТ_BOTFATHER");
+const app = express();
 
-<canvas id="gameCanvas" width="900" height="500"></canvas>
+app.use(express.json());
 
-<script src="game.js"></script>
+// Webhook endpoint
+app.post("/webhook", (req, res) => {
+  bot.handleUpdate(req.body);
+  res.sendStatus(200);
+});
 
-</body>
-</html>
+// Команда /start
+bot.start((ctx) => {
+  ctx.reply("Нажми кнопку, чтобы играть 👇", {
+    reply_markup: {
+      keyboard: [
+        [
+          {
+            text: "🎮 Играть",
+            web_app: { url: "https://uid00178.github.io/hippogame/" }
+          }
+        ]
+      ],
+      resize_keyboard: true
+    }
+  });
+});
+
+// Команда /play
+bot.command("play", (ctx) => {
+  ctx.reply("Запускаю игру 👇", {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: "Играть 🎮",
+            web_app: { url: "https://uid00178.github.io/hippogame/" }
+          }
+        ]
+      ]
+    }
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+
+// Set webhook
+bot.telegram.setWebhook(`https://hippogame-production.up.railway.app/webhook`);
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
