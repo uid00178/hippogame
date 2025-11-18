@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Hippo Jump</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #gameCanvas {
+            display: block;
+            background: #8b7d3a;
+        }
+        #score {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px #00000055;
+        }
+        #gameOver {
+            position: absolute;
+            top: 40%;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            display: none;
+        }
+        #restartBtn {
+            position: absolute;
+            top: 55%;
+            width: 100%;
+            text-align: center;
+            display: none;
+        }
+        button {
+            font-size: 22px;
+            padding: 12px 28px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="score">Счёт: 0</div>
+<div id="gameOver">Игра окончена</div>
+<div id="restartBtn"><button onclick="restartGame()">Играть снова</button></div>
+
+<canvas id="gameCanvas" width="900" height="500"></canvas>
+
+<script src="game.js"></script>
+
+</body>
+</html>
