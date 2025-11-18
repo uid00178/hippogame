@@ -47,10 +47,14 @@ bot.command("play", (ctx) => {
 
 const PORT = process.env.PORT || 3000;
 
-// Set webhook
-bot.telegram.setWebhook(`https://hippogame-production.up.railway.app/webhook`);
-
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+  
+  // Устанавливаем webhook ПОСЛЕ запуска сервера
+  try {
+    await bot.telegram.setWebhook(`https://hippogame-production.up.railway.app/webhook`);
+    console.log("Webhook set successfully!");
+  } catch (error) {
+    console.error("Error setting webhook:", error);
+  }
 });
-
